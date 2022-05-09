@@ -5,6 +5,8 @@ import com.example.movielog.service.MovieService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/movie")
 public class MovieRestController {
@@ -13,6 +15,12 @@ public class MovieRestController {
 
   public MovieRestController(MovieService movieService){
     this.movieService = movieService;
+  }
+
+  @GetMapping(value = "")
+  public ResponseEntity<List<Movie>> main() {
+    List<Movie> movieList = movieService.findAll();
+    return ResponseEntity.ok().body(movieList);
   }
 
   @GetMapping("/{id}")
