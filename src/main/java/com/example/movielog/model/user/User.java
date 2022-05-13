@@ -36,11 +36,11 @@ public class User implements UserDetails {
     this.nickname = nickname;
   }
 
-  public User(Long id, String email, String password, String nickname){
+  public User(Long id, String email, String password, List<String> roles){
     this.id = id;
     this.email = email;
     this.password = password;
-    this.nickname = nickname;
+    this.roles = roles;
   }
 
   @ElementCollection(fetch = FetchType.EAGER)
