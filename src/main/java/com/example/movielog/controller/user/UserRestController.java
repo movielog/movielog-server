@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -35,11 +37,18 @@ public class UserRestController {
                                               @RequestBody UserUpdateRequest userUpdateRequest){
 
     User user = userService.findByEmail(userAccount.getUsername())
-            .orElseThrow(()-> new UsernameNotFoundException("x"));
+            .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
 
     userService.update(user, userUpdateRequest.getNickname());
     return ResponseEntity.ok().body(user);
   }
 
+  @DeleteMapping("/user")
+  public void delete(@AuthenticationPrincipal UserAccount userAccount){
+    User user = userService.findByEmail(userAccount.getUsername())
+            .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+
+    userService.delete(user);
+  }
 
 }

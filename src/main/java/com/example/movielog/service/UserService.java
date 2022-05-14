@@ -51,6 +51,12 @@ public class UserService {
   public void update(User user, String nickname){
     user.update(nickname);
     userRepository.save(user);
+//    login(user.getEmail(), user.getPassword());
+  }
+
+  @Transactional
+  public void delete(User user){
+    userRepository.delete(user);
   }
 
   @Transactional
