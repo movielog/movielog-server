@@ -36,11 +36,10 @@ public class User implements UserDetails {
     this.nickname = nickname;
   }
 
-  public User(Long id, String email, String password, List<String> roles){
+  public User(Long id, String email, String password){
     this.id = id;
     this.email = email;
     this.password = password;
-    this.roles = roles;
   }
 
   @ElementCollection(fetch = FetchType.EAGER)
@@ -52,6 +51,10 @@ public class User implements UserDetails {
     return this.roles.stream()
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
+  }
+
+  public void update(String nickname){
+    this.nickname = nickname;
   }
 
   @Override

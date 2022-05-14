@@ -6,6 +6,8 @@ import com.example.movielog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -29,9 +31,15 @@ public class UserRestController {
 
 
   @PostMapping("/user/me")
-  public ResponseEntity<UserAccount> me(@AuthenticationPrincipal UserAccount userAccount){
-    User user = new User(userAccount.getUsername(), userAccount.getPassword(), userAccount.getUsername());
-    System.out.println(user.getEmail() + " " + user.getNickname());
-    return ResponseEntity.ok().body(userAccount);
+  public ResponseEntity<User> updateMe(@AuthenticationPrincipal UserAccount userAccount,
+                                              @RequestBody UserUpdateRequest userUpdateRequest){
+
+    User user = userService.findByEmail(userAccount.getUsername())
+            .orElseThrow(()-> new UsernameNotFoundException("x"));
+
+    userService.update(user, userUpdateRequest.getNickname());
+    return ResponseEntity.ok().body(user);
   }
+
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -46,4 +47,14 @@ public class UserService {
     return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
   }
 
+  @Transactional
+  public void update(User user, String nickname){
+    user.update(nickname);
+    userRepository.save(user);
+  }
+
+  @Transactional
+  public Optional<User> findByEmail(String email){
+    return userRepository.findByEmail(email);
+  }
 }
