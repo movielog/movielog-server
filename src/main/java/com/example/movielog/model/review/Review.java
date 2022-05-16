@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 public class Review {
 
-  @Id @GeneratedValue
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "REVIEW_NO")
   private Long id;
 

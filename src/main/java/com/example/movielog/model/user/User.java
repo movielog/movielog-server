@@ -1,5 +1,6 @@
 package com.example.movielog.model.user;
 
+import com.example.movielog.model.review.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
   @Id @GeneratedValue
+  @Column(name = "USER_NO")
   private Long id;
 
   private String email;
@@ -29,6 +31,9 @@ public class User implements UserDetails {
   private String password;
 
   private String nickname;
+
+  @OneToMany(mappedBy = "user")
+  private List<Review> reviews = new ArrayList<>();
 
   public User(String email, String password, String nickname){
     this.email = email;

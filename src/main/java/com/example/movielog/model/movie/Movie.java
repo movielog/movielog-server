@@ -1,17 +1,19 @@
 package com.example.movielog.model.movie;
 
+import com.example.movielog.model.review.Review;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 public class Movie {
 
   @Id @GeneratedValue
+  @Column(name = "MOVIE_NO")
   private Long no;
 
   private String title;
@@ -22,6 +24,9 @@ public class Movie {
   private int price;
   private String image;
   private double user_rating;
+
+  @OneToMany(mappedBy = "movie")
+  private List<Review> reviews = new ArrayList<>();
 
   public Movie(){}
 
