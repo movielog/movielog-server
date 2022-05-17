@@ -72,4 +72,18 @@ public class ReviewRestController {
 
     reviewService.delete(review);
   }
+
+  @GetMapping("/my")
+  public ResponseEntity<List<ReviewResponse>> myReviews(@AuthenticationPrincipal UserAccount userAccount){
+    User user = userService.findByEmail(userAccount.getUsername())
+            .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+
+    List<Review> reviewList = reviewService.findAllByUser(user);
+
+    List<ReviewResponse> collect = reviewList.stream()
+            .map(ReviewResponse::new)
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok(collect);
+  }
 }

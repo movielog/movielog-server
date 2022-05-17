@@ -3,6 +3,7 @@ package com.example.movielog.service;
 import com.example.movielog.controller.review.ReviewRequest;
 import com.example.movielog.controller.review.ReviewResponse;
 import com.example.movielog.model.review.Review;
+import com.example.movielog.model.user.User;
 import com.example.movielog.repository.review.ReviewRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,10 @@ public class ReviewService {
   @Transactional
   public void delete(Review review){
     reviewRepository.delete(review);
+  }
+
+  @Transactional
+  public List<Review> findAllByUser(User user){
+    return reviewRepository.findAllByUser(user);
   }
 }
