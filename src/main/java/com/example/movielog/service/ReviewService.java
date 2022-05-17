@@ -34,4 +34,10 @@ public class ReviewService {
   public List<Review> findAll(){
     return reviewRepository.findAll();
   }
+
+  @Transactional
+  public Long update(Review review, String title, String content){
+    review.update(title, content);
+    return reviewRepository.save(review).getId();
+  }
 }

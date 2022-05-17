@@ -53,4 +53,15 @@ public class ReviewRestController {
 
     return ResponseEntity.ok(collect);
   }
+
+  @PostMapping("/update/{reviewId}")
+  public Long update(@RequestBody ReviewUpdateRequest reviewUpdateRequest,
+                     @PathVariable("reviewId") Long reviewId){
+    Review review = reviewService.findById(reviewId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
+
+    reviewService.update(review, reviewUpdateRequest.getTitle(), reviewUpdateRequest.getContent());
+
+    return reviewId;
+  }
 }

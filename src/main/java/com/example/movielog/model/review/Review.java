@@ -10,7 +10,6 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@Builder
 public class Review {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,11 +37,8 @@ public class Review {
     this.content = content;
   }
 
-  public Review(Long id, String title, String content, User user, Movie movie){
-    this.id = id;
+  public void update(String title, String content){
     this.title = title;
     this.content = content;
-    this.user = user;
-    this.movie = movie;
   }
 }
