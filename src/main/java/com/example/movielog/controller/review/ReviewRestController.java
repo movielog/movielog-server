@@ -64,4 +64,12 @@ public class ReviewRestController {
 
     return reviewId;
   }
+
+  @DeleteMapping("/{reviewId}")
+  public void delete(@PathVariable("reviewId") Long reviewId){
+    Review review = reviewService.findById(reviewId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
+
+    reviewService.delete(review);
+  }
 }

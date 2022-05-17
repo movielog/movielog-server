@@ -40,4 +40,9 @@ public class ReviewService {
     review.update(title, content);
     return reviewRepository.save(review).getId();
   }
+
+  @Transactional
+  public void delete(Review review){
+    reviewRepository.delete(review);
+  }
 }
