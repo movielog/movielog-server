@@ -43,5 +43,14 @@ public class ReviewRestController {
             .getId();
   }
 
+  @GetMapping("")
+  public ResponseEntity<List<ReviewResponse>> reviews() {
+    List<Review> reviewList = reviewService.findAll();
 
+    List<ReviewResponse> collect = reviewList.stream()
+            .map(ReviewResponse::new)
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok(collect);
+  }
 }
