@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 
 @Getter
 public class MyOrderResponse {
-  private Long id;
+  private Long orderId;
   private OrderStatus status;
   private LocalDateTime date;
   private String title;
   private int price;
 
   public MyOrderResponse(Order order, Movie movie){
-    id = order.getId();
+    orderId = order.getId();
     status = order.getStatus();
     date = order.getDate();
 
