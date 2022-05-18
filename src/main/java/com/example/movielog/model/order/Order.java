@@ -1,22 +1,20 @@
-package com.example.movielog.model.review;
+package com.example.movielog.model.order;
 
 import com.example.movielog.model.movie.Movie;
 import com.example.movielog.model.user.User;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
+@Table(name = "ORDERS")
 @Getter
 @Entity
-public class Review {
+public class Order {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "REVIEW_NO")
+  @Column(name = "ORDER_NO")
   private Long id;
-
-  private String title;
-
-  private String content;
 
   @JoinColumn(name = "USER_NO")
   @ManyToOne(fetch = FetchType.LAZY)
@@ -26,17 +24,17 @@ public class Review {
   @ManyToOne(fetch = FetchType.LAZY)
   private Movie movie;
 
-  public Review(){}
+  @Enumerated(EnumType.STRING)
+  private OrderStatus status;
 
-  public Review(Movie movie, User user, String title, String content) {
-    this.movie = movie;
+  private LocalDateTime date;
+
+  public Order() {}
+
+  public Order(User user, Movie movie){
     this.user = user;
-    this.title = title;
-    this.content = content;
-  }
-
-  public void update(String title, String content){
-    this.title = title;
-    this.content = content;
+    this.movie = movie;
+    this.status = OrderStatus.ORDER;
+    this.date = LocalDateTime.now();
   }
 }
