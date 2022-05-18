@@ -13,6 +13,7 @@ public class MovieDetailResponse {
   private String actor;
   private int price;
   private int pub_date;
+  private double user_rating;
 
   public MovieDetailResponse(Movie movie){
     movieId = movie.getId();
@@ -23,5 +24,6 @@ public class MovieDetailResponse {
     actor = movie.getActor();
     price = movie.getPrice();
     pub_date = movie.getPub_date();
+    user_rating = movie.getUser_rating();
   }
 }
