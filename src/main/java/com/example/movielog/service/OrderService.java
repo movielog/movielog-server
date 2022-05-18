@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -26,5 +27,10 @@ public class OrderService {
   @Transactional
   public List<Order> findAllByUser(User user){
     return orderRepository.findAllByUser(user);
+  }
+
+  @Transactional
+  public Optional<Order> findById(Long id){
+    return orderRepository.findById(id);
   }
 }

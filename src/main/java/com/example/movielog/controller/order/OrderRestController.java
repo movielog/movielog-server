@@ -66,4 +66,15 @@ public class OrderRestController {
 
     return ResponseEntity.ok(collectList);
   }
+
+  @GetMapping("/my/order/{orderId}")
+  public ResponseEntity<MyOrderDetailResponse> myOrderDetail(@PathVariable("orderId") Long orderId){
+
+    Order order = orderService.findById(orderId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 주문입니다"));
+
+    MyOrderDetailResponse orderDetailResponse = new MyOrderDetailResponse(order.getMovie(), order);
+
+    return ResponseEntity.ok().body(orderDetailResponse);
+  }
 }
