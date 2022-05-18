@@ -6,9 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("/api")
 public class MovieRestController {
 
   private final MovieService movieService;
@@ -17,14 +18,26 @@ public class MovieRestController {
     this.movieService = movieService;
   }
 
-  @GetMapping(value = "")
-  public ResponseEntity<List<Movie>> main() {
+  @GetMapping(value = "/movie")
+  public ResponseEntity<List<MovieResponse>> main() {
+
     List<Movie> movieList = movieService.findAll();
-    return ResponseEntity.ok().body(movieList);
+
+    List<MovieResponse> collectList = movieList.stream()
+            .map(MovieResponse::new)
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok().body(collectList);
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Movie> findById(@PathVariable long id){
-    return ResponseEntity.of(movieService.findById(id));
+  @GetMapping("/movie/{id}")
+  public ResponseEntity<MovieDetailResponse> findById(@PathVariable long id){
+
+    Movie movie = movieService.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 영화입니다"));
+
+    MovieDetailResponse movieDetailResponse = new MovieDetailResponse(movie);
+
+    return ResponseEntity.ok().body(movieDetailResponse);
   }
 }

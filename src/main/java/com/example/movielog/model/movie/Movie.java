@@ -14,7 +14,7 @@ public class Movie {
 
   @Id @GeneratedValue
   @Column(name = "MOVIE_NO")
-  private Long no;
+  private Long id;
 
   private String title;
   private String subtitle;
