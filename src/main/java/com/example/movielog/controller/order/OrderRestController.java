@@ -39,4 +39,14 @@ public class OrderRestController {
             .newOrder(user, movie))
             .getId();
   }
+
+  @GetMapping("/order/{movieId}")
+  public ResponseEntity<OrderPageResponse> orderPage(@PathVariable("movieId") Long movieId){
+    Movie movie = movieService.findById(movieId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 영화입니다."));
+
+    OrderPageResponse orderPageResponse = new OrderPageResponse(movie);
+
+    return ResponseEntity.ok().body(orderPageResponse);
+  }
 }
