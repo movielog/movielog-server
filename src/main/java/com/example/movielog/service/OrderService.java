@@ -7,6 +7,8 @@ import com.example.movielog.repository.order.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -19,5 +21,10 @@ public class OrderService {
   @Transactional
   public Order order(Order order){;
     return orderRepository.save(order);
+  }
+
+  @Transactional
+  public List<Order> findAllByUser(User user){
+    return orderRepository.findAllByUser(user);
   }
 }
