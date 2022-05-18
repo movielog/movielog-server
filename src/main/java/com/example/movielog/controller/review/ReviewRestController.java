@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@RequestMapping("/review")
 @RestController
+@RequestMapping("/api")
 public class ReviewRestController {
 
   private final ReviewService reviewService;
@@ -27,7 +27,7 @@ public class ReviewRestController {
 
   private final MovieService movieService;
 
-  @PostMapping("/write/{movieId}")
+  @PostMapping("/review/write/{movieId}")
   public Long write(@AuthenticationPrincipal UserAccount userAccount,
                                       @RequestBody ReviewRequest reviewRequest,
                                       @PathVariable("movieId") Long movieId){
@@ -43,7 +43,7 @@ public class ReviewRestController {
             .getId();
   }
 
-  @GetMapping("")
+  @GetMapping("/review")
   public ResponseEntity<List<ReviewResponse>> reviews() {
     List<Review> reviewList = reviewService.findAll();
 
@@ -54,7 +54,7 @@ public class ReviewRestController {
     return ResponseEntity.ok(collect);
   }
 
-  @PostMapping("/update/{reviewId}")
+  @PostMapping("/my/review/{reviewId}")
   public Long update(@RequestBody ReviewUpdateRequest reviewUpdateRequest,
                      @PathVariable("reviewId") Long reviewId){
     Review review = reviewService.findById(reviewId)
@@ -65,7 +65,7 @@ public class ReviewRestController {
     return reviewId;
   }
 
-  @DeleteMapping("/{reviewId}")
+  @DeleteMapping("/my/review/{reviewId}")
   public void delete(@PathVariable("reviewId") Long reviewId){
     Review review = reviewService.findById(reviewId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
@@ -73,7 +73,7 @@ public class ReviewRestController {
     reviewService.delete(review);
   }
 
-  @GetMapping("/my")
+  @GetMapping("/my/review")
   public ResponseEntity<List<ReviewResponse>> myReviews(@AuthenticationPrincipal UserAccount userAccount){
     User user = userService.findByEmail(userAccount.getUsername())
             .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));

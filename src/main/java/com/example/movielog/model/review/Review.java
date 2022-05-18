@@ -2,8 +2,6 @@ package com.example.movielog.model.review;
 
 import com.example.movielog.model.movie.Movie;
 import com.example.movielog.model.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
