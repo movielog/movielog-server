@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class ReviewResponse {
 
-  private Long id;
+  private Long reviewId;
 
   private String title;
 
@@ -17,7 +17,7 @@ public class ReviewResponse {
   private String movietitle;
 
   public ReviewResponse(Review review) {
-    id = review.getId();
+    reviewId = review.getId();
     title = review.getTitle();
     content = review.getContent();
     nickname = review.getUser().getNickname();

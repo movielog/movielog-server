@@ -26,13 +26,8 @@ public class UserService {
   }
 
   @Transactional
-  public User join(String email, String password, String nickname){
-    return userRepository.save(User.builder()
-            .email(email)
-            .password(passwordEncoder.encode(password))
-            .nickname(nickname)
-            .roles(Collections.singletonList("ROLE_USER"))
-            .build());
+  public User join(User user){
+    return userRepository.save(user);
   }
 
   @Transactional

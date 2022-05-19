@@ -15,14 +15,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
 @Entity
 public class User implements UserDetails {
 
-  @Id @GeneratedValue
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "USER_NO")
   private Long id;
 
@@ -32,19 +29,20 @@ public class User implements UserDetails {
 
   private String nickname;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Review> reviews = new ArrayList<>();
+
+  public User() {}
+
+  public User(String email, String password){
+    this.email = email;
+    this.password = password;
+  }
 
   public User(String email, String password, String nickname){
     this.email = email;
     this.password = password;
     this.nickname = nickname;
-  }
-
-  public User(Long id, String email, String password){
-    this.id = id;
-    this.email = email;
-    this.password = password;
   }
 
   @ElementCollection(fetch = FetchType.EAGER)

@@ -2,11 +2,9 @@ package com.example.movielog.controller.user;
 
 import com.example.movielog.model.user.User;
 
-public class JoinRequest {
-
+public class LoginRequest {
   private String email;
   private String password;
-  private String nickname;
 
   public String getEmail() {
     return email;
@@ -16,11 +14,7 @@ public class JoinRequest {
     return password;
   }
 
-  public String getNickname() {
-    return nickname;
-  }
-
-  public User newUser(String email, String password, String nickname) {
-    return new User(email, password, nickname);
+  public User newLogin(User user){
+    return new User(user.getEmail(), user.getPassword());
   }
 }
