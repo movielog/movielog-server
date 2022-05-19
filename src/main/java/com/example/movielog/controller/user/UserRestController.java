@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.AuthenticationConverter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -19,6 +19,8 @@ import java.util.Optional;
 public class UserRestController {
 
   private final UserService userService;
+
+  private final PasswordEncoder passwordEncoder;
 
   @PostMapping("/join")
   public ResponseEntity<User> join(@RequestBody JoinRequest joinRequest) {
@@ -32,8 +34,15 @@ public class UserRestController {
 
 
   @PostMapping("/login")
-  public String login(@RequestBody User user){
-    return userService.login(user.getEmail(), user.getPassword());
+  public ResponseEntity<JoinResponse> login(@RequestBody LoginRequest loginRequest){
+    User user = userService.findByEmail(loginRequest.getEmail())
+            .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+
+    String token = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+
+    JoinResponse joinResponse = new JoinResponse(token, user.getNickname());
+
+    return ResponseEntity.ok().body(joinResponse);
   }
 
 
