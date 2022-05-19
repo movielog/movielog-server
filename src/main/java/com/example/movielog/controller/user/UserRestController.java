@@ -21,8 +21,12 @@ public class UserRestController {
   private final UserService userService;
 
   @PostMapping("/join")
-  public ResponseEntity<User> join(@RequestBody User user) {
-    User joinUser = userService.join(user.getEmail(), user.getPassword(), user.getNickname());
+  public ResponseEntity<User> join(@RequestBody JoinRequest joinRequest) {
+
+
+    User joinUser = userService.join(joinRequest
+            .newUser(joinRequest.getEmail(), passwordEncoder.encode(joinRequest.getPassword()), joinRequest.getNickname()));
+
     return ResponseEntity.ok().body(joinUser);
   }
 
