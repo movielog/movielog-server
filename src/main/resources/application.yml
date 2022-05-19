@@ -12,9 +12,11 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+    defer-datasource-initialization: true
 
   logging.level:
     org.hibernate.SQL: debug
 
   sql:
     init:
+      mode: always
