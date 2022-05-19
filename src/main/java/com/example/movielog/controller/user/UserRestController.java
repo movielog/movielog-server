@@ -23,7 +23,6 @@ public class UserRestController {
   @PostMapping("/join")
   public ResponseEntity<User> join(@RequestBody JoinRequest joinRequest) {
 
-
     User joinUser = userService.join(joinRequest
             .newUser(joinRequest.getEmail(), passwordEncoder.encode(joinRequest.getPassword()), joinRequest.getNickname()));
 
