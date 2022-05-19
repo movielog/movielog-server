@@ -32,15 +32,15 @@ public class UserRestController {
 
 
   @PostMapping("/login")
-  public ResponseEntity<JoinResponse> login(@RequestBody LoginRequest loginRequest){
+  public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
     User user = userService.findByEmail(loginRequest.getEmail())
             .orElseThrow(()-> new UsernameNotFoundException("존재하지 않는 회원입니다."));
 
     String token = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
-    JoinResponse joinResponse = new JoinResponse(token, user.getNickname());
+    LoginResponse loginResponse = new LoginResponse(token, user.getNickname());
 
-    return ResponseEntity.ok().body(joinResponse);
+    return ResponseEntity.ok().body(loginResponse);
   }
 
   @GetMapping("/user/me")
