@@ -1,5 +1,6 @@
 package com.example.movielog.model.user;
 
+import com.example.movielog.model.order.Order;
 import com.example.movielog.model.review.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,6 +32,9 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Review> reviews = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Order> orders = new ArrayList<>();
 
   public User() {}
 
