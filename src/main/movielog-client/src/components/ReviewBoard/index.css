@@ -1,0 +1,38 @@
+section.review_board {
+  inline-size: 1104px;
+  margin: 20px auto;
+}
+
+.review_board ul {
+  max-width: 640px;
+  margin: auto;
+}
+
+.review_board li {
+  background-color: rgb(242, 242, 242);
+  box-sizing: border-box;
+  padding: 0px 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 50px 0px;
+}
+
+.review_board span,
+.review_board p {
+  font-weight: 600;
+}
+
+.board_user {
+  border-bottom: 1px solid rgb(229, 229, 229);
+  padding: 15px 0px 10px;
+}
+
+.board_title,
+.board_movie {
+  border-bottom: 1px solid rgb(229, 229, 229);
+  padding: 20px 0;
+}
+
+.board_content {
+  padding: 10px 0px 15px;
+}

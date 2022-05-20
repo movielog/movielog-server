@@ -1,0 +1,62 @@
+section.write {
+  display: flex;
+  flex-flow: column;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.write_form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.no_alert {
+  inline-size: 500px;
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  resize: none;
+  outline: none;
+}
+
+.alert {
+  inline-size: 500px;
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px;
+  border: 1px solid rgb(54, 141, 210);
+  border-radius: 6px;
+  resize: none;
+  outline: none;
+}
+
+.write textarea {
+  block-size: 300px;
+}
+
+.write_btn button {
+  border: solid transparent;
+  background-color: #292a32;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 4px 10px;
+  margin: 5px;
+}
+
+.login-alert {
+  visibility: hidden;
+}
+
+.log-alert-view {
+  display: flex;
+}
+
+.write_alert {
+  color: rgb(54, 141, 210);
+  font-size: 14px;
+  font-weight: 700;
+}

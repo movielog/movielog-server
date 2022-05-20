@@ -1,0 +1,78 @@
+.join {
+  inline-size: 1104px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 200px;
+}
+
+.join form {
+  inline-size: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.join input {
+  inline-size: 300px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  outline: none;
+}
+
+.join button {
+  border: solid transparent;
+  background-color: #292a32;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  margin: 5px;
+  inline-size: 322px;
+  block-size: 41px;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  margin-top: 30px;
+}
+
+.error_msg {
+  color: rgb(54, 141, 210);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+button:disabled,
+button:disabled:hover,
+button:disabled:active {
+  background-color: #e3e3e3;
+  color: #292a32;
+  border-color: #e3e3e3;
+  cursor: not-allowed;
+}
+
+.invalid input {
+  border: 1px solid rgb(54, 141, 210);
+  background-color: rgba(54, 141, 210, 0.1);
+}
+
+.invalid input:focus {
+  border-color: rgb(54, 141, 210);
+}
+
+.login_guide {
+  margin-top: 10px;
+  font-size: 15px;
+  color: rgba(41, 42, 50, 0.5);
+}
+
+.login_guide a {
+  color: rgb(54, 141, 210);
+  margin-left: 2px;
+}
