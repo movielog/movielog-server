@@ -1,5 +1,6 @@
 package com.example.movielog.controller.review;
 
+import com.example.movielog.controller.movie.MovieResponse;
 import com.example.movielog.model.movie.Movie;
 import com.example.movielog.model.review.Review;
 import com.example.movielog.model.user.User;
@@ -63,6 +64,16 @@ public class ReviewRestController {
     reviewService.update(review, reviewUpdateRequest.getTitle(), reviewUpdateRequest.getContent());
 
     return reviewId;
+  }
+
+  @GetMapping("/review/write/{movieId}")
+  public ResponseEntity<MovieResponse> writePage(@PathVariable("movieId") Long movieId){
+    Movie movie = movieService.findById(movieId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 영화입니다."));
+
+    MovieResponse movieResponse = new MovieResponse(movie);
+
+    return ResponseEntity.ok().body(movieResponse);
   }
 
   @DeleteMapping("/my/review/{reviewId}")
