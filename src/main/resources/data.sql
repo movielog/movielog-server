@@ -140,3 +140,12 @@ INSERT INTO REVIEW(user_no,movie_no,title,content) VALUES
 
 
 -- ORDER
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (1,1,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (1,2,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (1,3,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (2,10,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (2,11,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (3,13,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (3,15,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (1,20,'ORDER',now());
+INSERT INTO ORDERS(user_no,movie_no,status,date) VALUES (1,30,'ORDER',now());
