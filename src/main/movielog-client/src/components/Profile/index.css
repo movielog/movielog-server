@@ -1,0 +1,49 @@
+section.profile {
+  inline-size: 1104px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 200px;
+}
+
+.profile form {
+  inline-size: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.profile label {
+  margin-right: 10px;
+  margin-left: 12px;
+}
+
+.profile_box {
+  display: flex;
+  flex-flow: column;
+}
+
+.profile_box input {
+  inline-size: 300px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  outline: none;
+}
+
+.joinBtn_area button {
+  border: solid transparent;
+  background-color: #292a32;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  margin: 5px;
+  padding: 5px 10px;
+  margin: 10px;
+  font-weight: 500;
+  margin-top: 30px;
+  text-align: center;
+}

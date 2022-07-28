@@ -1,0 +1,84 @@
+section.movie_detail {
+  inline-size: 1104px;
+  block-size: 400px;
+  margin: 0 auto;
+  margin-top: 100px;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.detail_area {
+  display: flex;
+  justify-content: space-around;
+  inline-size: 100%;
+}
+
+.detail_box {
+  display: flex;
+  inline-size: 100%;
+  margin: 0 100px;
+}
+
+.detail_box img {
+  margin-right: 24px;
+}
+
+.info_title {
+  font-size: 33px;
+  font-weight: 700;
+}
+
+.info_subtitle {
+  font-weight: 500;
+}
+
+.info_rating {
+  display: flex;
+  align-items: center;
+}
+
+.info_rating span {
+  color: rgb(54, 141, 210);
+  font-size: 18px;
+}
+
+.button_box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 100px;
+}
+
+.button_box button {
+  border: solid transparent;
+  background-color: #292a32;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 4px;
+  margin: 5px;
+}
+
+.button_box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.button_box .material-icons-outlined {
+  font-size: 14px;
+}
+
+.detail_review {
+  display: flex;
+  align-items: center;
+}
+
+.detail_order {
+  display: flex;
+  align-items: center;
+}

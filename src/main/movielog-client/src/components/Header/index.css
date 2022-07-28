@@ -1,0 +1,62 @@
+header {
+  box-shadow: 0 1px 0 0 rgb(0 0 0 / 8%);
+}
+
+.navbar {
+  inline-size: 1104px;
+  position: inherit;
+  margin: 0 auto;
+  block-size: 64px;
+  display: grid;
+  grid-template-columns: 200px 2fr 1fr;
+  align-items: center;
+}
+
+.navbar_logo {
+  font-size: 24px;
+  font-family: Roboto;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.navbar_menu {
+  display: flex;
+  font-size: 16px;
+  grid-gap: 30px;
+  font-weight: 700;
+}
+
+.login {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.login a {
+  margin-left: 15px;
+}
+
+.navbar_menu a,
+.login a {
+  position: relative;
+  padding-bottom: 7px;
+}
+
+.navbar_menu a:before,
+.login a::before {
+  content: "";
+  position: absolute;
+  background-color: rgb(54, 141, 210);
+  height: 5px;
+  width: 0;
+  bottom: 0;
+  transition: 0.5s;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar_menu a:hover:before,
+.login a:hover:before {
+  width: 100%;
+}

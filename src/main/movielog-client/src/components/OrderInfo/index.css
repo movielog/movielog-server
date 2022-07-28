@@ -1,0 +1,94 @@
+section.order_info {
+  inline-size: 1104px;
+  display: flex;
+  flex-flow: column;
+  margin: 10px auto;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.order_info p {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+div.order_info_area {
+  inline-size: 100%;
+  block-size: 400px;
+  margin: 20px auto;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 20px 0;
+}
+
+.order_info_area p {
+  margin: 20px 100px 30px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.order_info_box {
+  display: flex;
+  margin: 0 100px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order_info_box img {
+  margin-right: 24px;
+}
+
+.order_info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.order_info_box span {
+  color: #999999;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.order_info_subtitle {
+  font-size: 14px;
+}
+
+.order_info_detail {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.order_purchase_info {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  margin: 30px 100px;
+  padding-top: 20px;
+  border-top: 1px solid #e3e3e3;
+}
+
+.order_info_date {
+  display: flex;
+  margin: 30px 100px;
+}
+
+.order_info_date span {
+  margin: 0 10px;
+}
+
+.order_info_title {
+  font-weight: 600;
+}
+
+.order_purchase_info_detail {
+  margin-top: 10px;
+}
+
+.order_purchase_info_detail span:first-child {
+  margin-right: 20px;
+}

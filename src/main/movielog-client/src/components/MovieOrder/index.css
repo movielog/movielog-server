@@ -1,0 +1,89 @@
+section.movie_order_page {
+  inline-size: 1104px;
+  display: flex;
+  flex-flow: column;
+  margin: 100px auto;
+}
+
+.movie_order_page p {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+div.movie_order {
+  inline-size: 100%;
+  block-size: 400px;
+  margin: 20px auto;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.movie_order p {
+  margin: 20px 100px 30px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.order_box {
+  display: flex;
+  margin: 0 100px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order_box img {
+  margin-right: 24px;
+}
+
+.order_detail {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.order_detail span {
+  color: #999999;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.order_title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.order_subtitle {
+  font-size: 14px;
+}
+
+.order_price {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.order_button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.order_button button {
+  border: solid transparent;
+  background-color: #292a32;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 4px 10px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.order_button span {
+  font-size: 16px;
+}

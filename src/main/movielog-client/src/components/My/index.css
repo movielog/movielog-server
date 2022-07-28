@@ -1,0 +1,15 @@
+.my {
+  inline-size: 1104px;
+  margin: auto;
+}
+
+ul.my_menu {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.my_menu li {
+  margin: 10px;
+  font-weight: 500;
+}

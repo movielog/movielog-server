@@ -1,0 +1,18 @@
+section.my_review {
+  inline-size: 1104px;
+  margin: 20px auto;
+}
+
+.my_review ul {
+  max-width: 640px;
+  margin: auto;
+}
+
+.my_review li {
+  background-color: rgb(242, 242, 242);
+  box-sizing: border-box;
+  padding: 0px 16px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 50px 0px;
+}

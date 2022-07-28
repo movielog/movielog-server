@@ -1,0 +1,44 @@
+.review_edit_movie p,
+.review_edit_title p,
+.review_edit_content p {
+  font-weight: 600;
+}
+
+.review_edit_movie,
+.review_edit_title {
+  border-bottom: 1px solid rgb(229, 229, 229);
+  padding: 20px 0;
+  display: flex;
+  flex-flow: column;
+}
+
+.review_edit_title input,
+.review_edit_content textarea {
+  background-color: transparent;
+  border-radius: 4px;
+  outline: none;
+  padding: 6px;
+  border: 1px solid #999999;
+}
+
+.review_edit_content {
+  padding: 10px 0px 15px;
+  display: flex;
+  flex-flow: column;
+}
+
+.review_edit_btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.review_edit_btn button {
+  margin-left: 5px;
+  border: solid transparent;
+  background-color: #e3e3e3;
+  border-radius: 6px;
+  color: #292a32;
+  font-size: 14px;
+  padding: 4px 6px;
+}
