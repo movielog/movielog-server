@@ -13,9 +13,6 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-before_install:
-  - npm init
-
 install:
   - npm install npm@8.5.5
   - node -v
