@@ -1,4 +1,5 @@
 language: java
+
 jdk:
   - openjdk8
 
@@ -13,7 +14,10 @@ cache:
     - '$HOME/.gradle'
 
 install:
-  - npm install
+  - sudo apt-get update
+  - curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
+  - sudo apt-get install build-essential
 
 script:
   - "./gradlew clean build"
