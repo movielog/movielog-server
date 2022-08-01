@@ -15,7 +15,9 @@ cache:
 install:
   - npm install
 
-script: "./gradlew clean build"
+script:
+  - "./gradlew clean build"
+  - npm run build
 
 # CI 실행 완료시 메일로 알람
 notifications:
