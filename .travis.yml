@@ -18,6 +18,8 @@ install:
   - curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
   - sudo apt-get install -y nodejs
   - sudo apt-get install build-essential
+  - nvm use 16.15.0
+  - node -v
 
 script:
   - "./gradlew clean build"
