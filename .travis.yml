@@ -14,9 +14,16 @@ cache:
     - '$HOME/.gradle'
 
 install:
-  - npm install npm@8.5.5
+  - nvm ls
   - node -v
   - npm -v
+  - echo "Test..."
+  - npm install npm@8.5.5
+  - nvm use 16.15.0
+  - nvm ls
+  - node -v
+  - npm -v
+  -
 
 script:
   - "./gradlew clean build"
