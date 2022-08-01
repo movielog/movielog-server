@@ -13,10 +13,13 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-install:
+before_install:
   - npm init
+
+install:
   - npm install npm@8.5.5
   - node -v
+  - npm -v
 
 script:
   - "./gradlew clean build"
@@ -27,3 +30,6 @@ notifications:
   email:
     recipients:
       - inseon0731@naver.com
+
+after_success:
+  - echo "Test Success"
