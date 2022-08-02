@@ -20,11 +20,8 @@ install:
   - nvm install 16.15.0
   - npm update
 
-  - nvm ls
-  - nvm -v
   - node -v
   - npm -v
-
 
 script:
   - "./gradlew clean build"
