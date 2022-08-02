@@ -43,6 +43,17 @@ deploy:
     on:
       branch: main
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: springboot-movielog-build
+    key: movielog-server.zip
+    bundle_type: zip
+    application: springboot-movielog
+    deployment_group: springboot-movielog-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
