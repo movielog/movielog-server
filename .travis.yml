@@ -1,4 +1,5 @@
 language: java
+
 jdk:
   - openjdk8
 
@@ -12,10 +13,41 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build"
+install:
+  - echo "Test(install)"
+  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  - source ~/.bashrc
+  - nvm install 16.15.0
+  - npm update
+
+  - node -v
+  - npm -v
+
+script:
+  - "./gradlew clean build"
+
+before_deploy:
+  - zip -r springboot-movielog ##
+  - mkdir -p deploy
+  - mv springboot-movielog.zip deploy/springboot-movielog.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: springboot-movielog-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deploy: true
+
 
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
     recipients:
       - inseon0731@naver.com
+
+after_success:
+  - echo "Test Success"
