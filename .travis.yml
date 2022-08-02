@@ -27,7 +27,7 @@ script:
   - "./gradlew clean build"
 
 before_deploy:
-  - zip -r springboot-movielog
+  - zip -r springboot-movielog *
   - mkdir -p deploy
   - mv springboot-movielog.zip deploy/springboot-movielog.zip
 
