@@ -19,7 +19,6 @@ install:
   - source ~/.bashrc
   - nvm install 16.15.0
   - npm update
-
   - node -v
   - npm -v
 
@@ -27,9 +26,9 @@ script:
   - "./gradlew clean build"
 
 before_deploy:
-  - zip -r springboot-movielog *
+  - zip -r movielog-server *
   - mkdir -p deploy
-  - mv springboot-movielog.zip deploy/springboot-movielog.zip
+  - mv movielog-server.zip deploy/movielog-server.zip
 
 deploy:
   - provider: s3
@@ -43,7 +42,6 @@ deploy:
     wait-until-deployed: true
     on:
       branch: main
-
 
 # CI 실행 완료시 메일로 알람
 notifications:
