@@ -27,7 +27,7 @@ script:
   - "./gradlew clean build"
 
 before_deploy:
-  - zip -r springboot-movielog ##
+  - zip -r springboot-movielog
   - mkdir -p deploy
   - mv springboot-movielog.zip deploy/springboot-movielog.zip
 
@@ -41,6 +41,8 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deploy: true
+    on:
+      branch: main
 
 
 # CI 실행 완료시 메일로 알람
