@@ -26,9 +26,9 @@ script:
   - "./gradlew clean build"
 
 before_deploy:
-  - zip -r movielog-server *
+  - zip -r movie-log *
   - mkdir -p deploy
-  - mv movielog-server.zip deploy/movielog-server.zip
+  - mv movie-log.zip deploy/movie-log.zip
 
 deploy:
   - provider: s3
@@ -47,7 +47,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: springboot-movielog-build
-    key: movielog-server.zip
+    key: movie-log.zip
     bundle_type: zip
     application: springboot-movielog
     deployment_group: springboot-movielog-group
