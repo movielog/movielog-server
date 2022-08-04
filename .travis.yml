@@ -1,28 +1,58 @@
-language: java
+#language: java
+#
+#jdk:
+#  - openjdk8
+#
+#branches:
+#  only:
+#    - main
+#
+## Travis CI 서버의 Home
+#cache:
+#  directories:
+#    - '$HOME/.m2/repository'
+#    - '$HOME/.gradle'
+#
+#script: "./gradlew clean build"
+#
+#install:
+#  - echo "Test(install)"
+#  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#  - source ~/.bashrc
+#  - nvm install 16.15.0
+#  - npm update
+#  - node -v
+#  - npm -v
 
-jdk:
-  - openjdk8
+jobs:
+  include:
+    - language: java
+      jdk: openjdk8
+      cache:
+        directories:
+          - '$HOME/.m2/repository'
+          - '$HOME/.gradle'
+      script: "./gradlew clean build"
 
-branches:
-  only:
-    - main
+    - language: node_js
+      node_js: 16
+      cache: npm
+      install:
+        - echo "Test(install)"
+          - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          - source ~/.bashrc
+          - nvm install 16.15.0
+          - npm update
+          - node -v
+          - npm -v
+      script: npm run build
 
-# Travis CI 서버의 Home
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.gradle'
 
-script: "./gradlew clean build"
 
-install:
-  - echo "Test(install)"
-  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-  - source ~/.bashrc
-  - nvm install 16.15.0
-  - npm update
-  - node -v
-  - npm -v
+
+
+
+
 
 before_deploy:
   - zip -r movie-log *
@@ -40,7 +70,7 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
     on:
-      all_branches: true
+      branch: main
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
@@ -52,7 +82,7 @@ deploy:
     region: ap-northeast-2
     wait-until-deployed: true
     on:
-      all_branches: true
+      branch: main
 
 # CI 실행 완료시 메일로 알람
 notifications:
