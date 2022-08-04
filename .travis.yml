@@ -12,6 +12,11 @@ cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
+    - '$HOME/main/movielog-client/node_modules'
+
+script:
+  - "./gradlew clean build"
+  - travis_wait 30
 
 install:
   - echo "Test(install)"
@@ -22,13 +27,12 @@ install:
   - node -v
   - npm -v
 
-script:
-  - "./gradlew clean build"
-
 before_deploy:
-  - zip -r movielog-server *
+#  - zip -r movie-log *
+  - tar -cf movie-log.tar *
   - mkdir -p deploy
-  - mv movielog-server.zip deploy/movielog-server.zip
+#  - mv movie-log.zip deploy/movie-log.zip
+  - mv movie-log.tar deploy/movie-log.tar
 
 deploy:
   - provider: s3
@@ -41,18 +45,19 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
     on:
-      branch: main
-
+      branche: main
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: springboot-movielog-build
-    key: movielog-server.zip
-    bundle_type: zip
-    application: springboot-movielog
-    deployment_group: springboot-movielog-group
+    key: movie-log.tar
+    bundle_type: tar
+    application: movielog-codedeploy
+    deployment_group: movielog-codedeploy-group
     region: ap-northeast-2
     wait-until-deployed: true
+    on:
+      branche: main
 
 # CI 실행 완료시 메일로 알람
 notifications:
@@ -62,3 +67,8 @@ notifications:
 
 after_success:
   - echo "Test Success"
+
+
+
+
+
