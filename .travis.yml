@@ -1,54 +1,53 @@
-#language: java
-#
-#jdk:
-#  - openjdk8
-#
-#branches:
-#  only:
-#    - main
-#
-## Travis CI 서버의 Home
-#cache:
-#  directories:
-#    - '$HOME/.m2/repository'
-#    - '$HOME/.gradle'
-#
-#script: "./gradlew clean build"
-#
-#install:
-#  - echo "Test(install)"
-#  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-#  - source ~/.bashrc
-#  - nvm install 16.15.0
-#  - npm update
-#  - node -v
-#  - npm -v
+language: java
 
-jobs:
-  include:
-    - language: java
-      jdk: openjdk8
-      cache:
-        directories:
-          - '$HOME/.m2/repository'
-          - '$HOME/.gradle'
-      install:
-        - echo "Test(install)"
-        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-        - source ~/.bashrc
-        - nvm install 16.15.0
-        - npm update
-        - node -v
-        - npm -v
-      script: "./gradlew clean build"
+jdk:
+  - openjdk8
 
-    - language: node_js
-      node_js: 16
-      cache: npm
-      script: npm run build
+branches:
+  only:
+    - main
 
+# Travis CI 서버의 Home
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+    - '$HOME/main/movielog-client/node_modules'
 
+script: "./gradlew clean build"
 
+install:
+  - echo "Test(install)"
+  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  - source ~/.bashrc
+  - nvm install 16.15.0
+  - npm update
+  - node -v
+  - npm -v
+
+#jobs:
+#  include:
+#    - language: java
+#      jdk: openjdk8
+#      cache:
+#        directories:
+#          - '$HOME/.m2/repository'
+#          - '$HOME/.gradle'
+#      install:
+#        - echo "Test(install)"
+#        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#        - source ~/.bashrc
+#        - nvm install 16.15.0
+#        - npm update
+#        - node -v
+#        - npm -v
+#      script: "./gradlew clean build"
+#
+#    - language: node_js
+#      node_js: 16
+#      cache:
+#        directories:
+#          - '$HOME/main/movielog-client/node_modules'
 
 before_deploy:
   - zip -r movie-log *
