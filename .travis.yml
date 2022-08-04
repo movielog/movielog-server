@@ -13,17 +13,16 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-install:
-  - echo "Test(install)"
-  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-  - source ~/.bashrc
-  - nvm install 16.15.0
-  - npm update
-  - node -v
-  - npm -v
+script: "./gradlew clean build"
 
-script:
-  - "./gradlew clean build"
+#install:
+#  - echo "Test(install)"
+#  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#  - source ~/.bashrc
+#  - nvm install 16.15.0
+#  - npm update
+#  - node -v
+#  - npm -v
 
 before_deploy:
   - zip -r movie-log *
