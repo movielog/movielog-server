@@ -7,6 +7,12 @@ branches:
   only:
     - main
 
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+
 # Travis CI 서버의 Home
 cache:
   directories:
@@ -52,8 +58,6 @@ deploy:
     deployment_group: movielog-codedeploy-group
     region: ap-northeast-2
     wait-until-deployed: true
-    on:
-      branch: main
 
 # CI 실행 완료시 메일로 알람
 notifications:
