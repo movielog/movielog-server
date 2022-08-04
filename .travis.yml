@@ -3,10 +3,9 @@ language: java
 jdk:
   - openjdk8
 
-#branches:
-#  only:
-#    - main
-#    - develop
+branches:
+  only:
+    - main
 
 # Travis CI 서버의 Home
 cache:
@@ -15,7 +14,9 @@ cache:
     - '$HOME/.gradle'
     - '$HOME/main/movielog-client/node_modules'
 
-script: "./gradlew clean build"
+script:
+  - "./gradlew clean build"
+  - travis_wait 30
 
 install:
   - echo "Test(install)"
@@ -42,7 +43,7 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
     on:
-      - all_branches: true
+      branche: main
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
@@ -54,7 +55,7 @@ deploy:
     region: ap-northeast-2
     wait-until-deployed: true
     on:
-      - all_branches: true
+      branche: main
 
 # CI 실행 완료시 메일로 알람
 notifications:
