@@ -6,12 +6,7 @@ jdk:
 branches:
   only:
     - main
-
-permissions:
-  - object: /
-    pattern: "**"
-    owner: ec2-user
-    group: ec2-user
+    - develop
 
 # Travis CI 서버의 Home
 cache:
