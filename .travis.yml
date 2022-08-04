@@ -28,9 +28,11 @@ install:
   - npm -v
 
 before_deploy:
-  - zip -r movie-log *
+#  - zip -r movie-log *
+  - tar movie-log *
   - mkdir -p deploy
-  - mv movie-log.zip deploy/movie-log.zip
+#  - mv movie-log.zip deploy/movie-log.zip
+  - mv movie-log.tar deploy/movie-log.tar
 
 deploy:
   - provider: s3
@@ -48,8 +50,8 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: springboot-movielog-build
-    key: movie-log.zip
-    bundle_type: zip
+    key: movie-log.tar
+    bundle_type: tar
     application: movielog-codedeploy
     deployment_group: movielog-codedeploy-group
     region: ap-northeast-2
