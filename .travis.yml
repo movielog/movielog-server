@@ -29,7 +29,7 @@ install:
 
 before_deploy:
 #  - zip -r movie-log *
-  - tar movie-log *
+  - tar -cf movie-log.tar *
   - mkdir -p deploy
 #  - mv movie-log.zip deploy/movie-log.zip
   - mv movie-log.tar deploy/movie-log.tar
