@@ -11,7 +11,7 @@ function Header({ nickname }) {
             MovieLog
           </Link>
           <li className="navbar_menu">
-            <Link to="/">영화</Link>
+            <Link to="/">영화!</Link>
             <Link to="/review">리뷰</Link>
             {nickname ? <Link to="/my/order">MY</Link> : <></>}
           </li>
