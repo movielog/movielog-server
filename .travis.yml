@@ -28,10 +28,17 @@ install:
   - npm -v
 
 before_deploy:
-#  - zip -r movie-log *
+  - mkdir -p before-deploy
+  - cp scripts/*.sh before-deploy/
+  - cp appspec.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/
+  - cd before-deploy && tar -cf before-deploy.tar *
+  - cd ../ && mkdir -p deploy
+  - mv before-deploy/before-deploy.tar deploy/movie-log.tar
+
+
   - tar -cf movie-log.tar *
   - mkdir -p deploy
-#  - mv movie-log.zip deploy/movie-log.zip
   - mv movie-log.tar deploy/movie-log.tar
 
 deploy:
@@ -67,8 +74,3 @@ notifications:
 
 after_success:
   - echo "Test Success"
-
-
-
-
-
