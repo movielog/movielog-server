@@ -36,10 +36,9 @@ before_deploy:
   - cd ../ && mkdir -p deploy
   - mv before-deploy/before-deploy.tar deploy/movie-log.tar
 
-
-  - tar -cf movie-log.tar *
-  - mkdir -p deploy
-  - mv movie-log.tar deploy/movie-log.tar
+#  - tar -cf movie-log.tar *
+#  - mkdir -p deploy
+#  - mv movie-log.tar deploy/movie-log.tar
 
 deploy:
   - provider: s3
