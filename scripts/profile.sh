@@ -1,7 +1,7 @@
-#!/bin/bash/env bash
+#!/usr/bin/env bash
 
-# 쉬고 있는 profile 찾기: real1이 사용 중이면 real2가 쉼.
-# 반대로, real2가 사용 중이면 real1이 쉼.
+# 쉬고 있는 profile 찾기: real1이 사용 중이면 real2가 쉼
+# 반대로, real2가 사용 중이면 real1이 쉼
 function find_idle_profile() {
   RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/profile) # Nginx와 연결되어 있는 스프링 부트가 정상 작동 중인지 확인
 

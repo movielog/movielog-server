@@ -1,4 +1,4 @@
-#!/bin/bash/env bash
+#!/usr/bin/env bash
 
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH) # 현재 stop.sh에 속해 있는 경로 찾기
