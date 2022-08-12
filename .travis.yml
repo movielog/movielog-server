@@ -24,8 +24,8 @@ install:
   - source ~/.bashrc
   - nvm install 16.15.0
   - npm update
-  - node -v
-  - npm -v
+#  - node -v
+#  - npm -v
 
 before_deploy:
   - mkdir -p before-deploy
