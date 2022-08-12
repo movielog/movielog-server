@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  session:
+    store-type: jdbc
+  profiles:
+    include: real-db
+
+server:
+  port: 8081
