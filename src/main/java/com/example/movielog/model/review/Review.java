@@ -2,6 +2,7 @@ package com.example.movielog.model.review;
 
 import com.example.movielog.model.movie.Movie;
 import com.example.movielog.model.user.User;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -19,15 +20,16 @@ public class Review {
   private String content;
 
   @JoinColumn(name = "USER_NO")
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private User user;
 
   @JoinColumn(name = "MOVIE_NO")
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Movie movie;
 
   public Review(){}
 
+  @Builder
   public Review(Movie movie, User user, String title, String content) {
     this.movie = movie;
     this.user = user;

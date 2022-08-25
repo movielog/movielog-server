@@ -25,7 +25,7 @@ public class Movie {
   private String image;
   private double user_rating;
 
-  @OneToMany(mappedBy = "movie")
+  @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
   private List<Review> reviews = new ArrayList<>();
 
   public Movie(){}
