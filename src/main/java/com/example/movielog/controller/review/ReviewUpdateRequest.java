@@ -12,8 +12,6 @@ public class ReviewUpdateRequest {
     return content;
   }
 
-  protected ReviewUpdateRequest() {}
-
   public ReviewUpdateRequest(String title, String content) {
     this.title = title;
     this.content = content;
