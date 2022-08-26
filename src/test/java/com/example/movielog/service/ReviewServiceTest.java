@@ -98,4 +98,23 @@ public class ReviewServiceTest {
     assertThat(reviewList, is(notNullValue()));
     assertThat(reviewList.size(), is(1));
   }
+
+  @Test
+  @Order(4)
+  void Review_유저별_목록_조회하기(){
+
+    // given
+    String title = "review title";
+    String content = "review content";
+
+    reviewService.write(new Review(movie, user, title, content));
+    reviewService.write(new Review(movie2, user2, title, content));
+
+    // when
+    List<Review> reviewList = reviewService.findAllByUser(user);
+
+    // then
+    assertThat(reviewList, is(notNullValue()));
+    assertThat(reviewList.size(), is(1));
+  }
 }
