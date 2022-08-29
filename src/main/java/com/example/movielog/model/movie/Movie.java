@@ -31,5 +31,14 @@ public class Movie {
   public Movie(){}
 
   @Builder
-  public Movie(String title, String subtitle, String director, String actor, int pub_date, int price, String image, double user_rating){}
+  public Movie(String title, String subtitle, String director, String actor, int pub_date, int price, String image, double user_rating){
+    this.title = title;
+    this.subtitle = subtitle;
+    this.director = director;
+    this.actor = actor;
+    this.pub_date = pub_date;
+    this.price = price;
+    this.image = image;
+    this.user_rating = user_rating;
+  }
 }
