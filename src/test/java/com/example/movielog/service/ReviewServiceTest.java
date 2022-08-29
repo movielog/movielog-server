@@ -117,4 +117,24 @@ public class ReviewServiceTest {
     assertThat(reviewList, is(notNullValue()));
     assertThat(reviewList.size(), is(1));
   }
+
+  @Test
+  void Review_삭제하기(){
+
+    //given
+    String title = "review title";
+    String content = "review content";
+
+    Review review = reviewService.write(new Review(movie, user, title, content));
+
+    Review findReview = reviewService.findById(review.getId()).orElse(null);
+
+    // when
+    reviewService.delete(findReview);
+
+    List<Review> reviewList = reviewService.findAllByUser(user);
+
+    // then
+    assertThat(reviewList.size(), is(0));
+  }
 }
