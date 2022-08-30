@@ -22,21 +22,20 @@ public class ProfileControllerUnitTest {
     Assertions.assertEquals(profile, expectedProfile);
   }
 
-//  @Test
-//  public void real_profile_없으면_첫번째조회(){
-//    String expectedProfile = "oauth";
-//    MockEnvironment env = new MockEnvironment();
-//
-//    env.addActiveProfile(expectedProfile);
-//    env.addActiveProfile("real-db");
-//
-//    ProfileController controller = new ProfileController(env);
-//
-//    String profile = controller.profile();
-//
-//    Assertions.assertEquals(profile, expectedProfile);
-//  }
+  @Test
+  public void real_profile_없으면_첫번째조회(){
+    String expectedProfile = "oauth";
+    MockEnvironment env = new MockEnvironment();
 
+    env.addActiveProfile(expectedProfile);
+    env.addActiveProfile("real-db");
+
+    ProfileController controller = new ProfileController(env);
+
+    String profile = controller.profile();
+
+    Assertions.assertEquals(profile, expectedProfile);
+  }
 
   @Test
   public void hi_default(){
