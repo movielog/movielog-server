@@ -65,4 +65,32 @@ public class UserServiceTest {
     assertThat(mockUser.getNickname(), is("cloud"));
   }
 
+
+  @Test
+  @DisplayName("회원 탈퇴하기")
+  void delete() {
+
+    // given
+    User mockUser = User.builder()
+            .email("sunny@gmail.com")
+            .password("1234")
+            .nickname("sunny")
+            .build();
+
+    userService.join(mockUser);
+
+
+  }
+
+  @Test
+  @Transactional
+  @DisplayName("이메일으로 회원 찾기")
+  void findByEmail() {
+
+    // given
+
+    // when
+
+    // then
+  }
 }
