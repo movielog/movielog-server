@@ -3,10 +3,12 @@ package com.example.movielog.service;
 import com.example.movielog.model.movie.Movie;
 import com.example.movielog.model.review.Review;
 import com.example.movielog.model.user.User;
+import com.example.movielog.repository.user.UserRepository;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,9 @@ public class ReviewServiceTest {
   @Autowired
   UserService userService;
 
+  @Autowired
+  UserRepository userRepository;
+
   Movie movie, movie2;
   User user, user2;
 
@@ -40,8 +45,8 @@ public class ReviewServiceTest {
   }
 
   @Test
-  @Order(1)
-  public void Review_작성하기(){
+  @DisplayName("리뷰 작성 테스트")
+  void review_write(){
 
     //given
     String title = "review title";
@@ -53,13 +58,13 @@ public class ReviewServiceTest {
     // then
     assertThat(review.getId(), is(notNullValue()));
     assertThat(review.getContent(), is(content));
-    assertThat(review.getId(), is(1L));
+    assertThat(review.getId(), is(3L));
 
     log.info("review : {}", review);
   }
 
   @Test
-  @Order(2)
+  @DisplayName("리뷰 수정 테스트")
   @Transactional
   public void Review_수정하기(){
 
@@ -82,7 +87,7 @@ public class ReviewServiceTest {
   }
 
   @Test
-  @Order(3)
+  @DisplayName("리뷰 목록 조회 테스트")
   public void Review_전체목록_조회하기(){
 
     // given
@@ -96,11 +101,11 @@ public class ReviewServiceTest {
 
     // then
     assertThat(reviewList, is(notNullValue()));
-    assertThat(reviewList.size(), is(1));
+    assertThat(reviewList.size(), is(5)); // fail: real=4
   }
 
   @Test
-  @Order(4)
+  @DisplayName("유저 A가 작성한 리뷰 목록 조회 테스트")
   void Review_유저별_목록_조회하기(){
 
     // given
@@ -119,6 +124,7 @@ public class ReviewServiceTest {
   }
 
   @Test
+  @DisplayName("리뷰 삭제 테스트")
   void Review_삭제하기(){
 
     //given

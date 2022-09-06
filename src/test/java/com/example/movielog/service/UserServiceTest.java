@@ -8,15 +8,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-
 
 @ExtendWith(SpringExtension.class)
 public class UserServiceTest {
@@ -29,12 +27,12 @@ public class UserServiceTest {
 
   @Test
   @DisplayName("회원 가입")
-  void join(){
+  void join() {
 
     // given
     User mockUser = User.builder()
             .email("sunny@gmail.com")
-            .password("5678")
+            .password("1234")
             .nickname("sunny")
             .build();
 
@@ -49,7 +47,7 @@ public class UserServiceTest {
 
   @Test
   @DisplayName("회원 닉네임 수정하기")
-  void update(){
+  void update() {
 
     // given
     User mockUser = User.builder()
@@ -65,32 +63,25 @@ public class UserServiceTest {
     assertThat(mockUser.getNickname(), is("cloud"));
   }
 
-
   @Test
-  @DisplayName("회원 탈퇴하기")
-  void delete() {
+  @DisplayName("이메일으로 회원 찾기")
+  void findByEmail() {
 
     // given
-    User mockUser = User.builder()
+    User user = User.builder()
             .email("sunny@gmail.com")
             .password("1234")
             .nickname("sunny")
             .build();
 
-    userService.join(mockUser);
-
-
-  }
-
-  @Test
-  @Transactional
-  @DisplayName("이메일으로 회원 찾기")
-  void findByEmail() {
-
-    // given
-
     // when
+    Optional<User> mockUser = Optional.of(user);
+    when(userService.findByEmail(any())).thenReturn(mockUser);
+
+    Optional<User> actualUser = this.userService.findByEmail(user.getEmail());
 
     // then
+    assertThat(user.getId(), is(actualUser.get().getId()));
+    assertThat(user.getEmail(), is(actualUser.get().getEmail()));
   }
 }
