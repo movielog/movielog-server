@@ -37,27 +37,40 @@
 </div>
 
 
-## 주요 기능
+## 작업 내용
+- MOVIE
+  - 메인 화면 (영화 전체 조회)
+    - GET `/movie`
+  - 영화 상세 (개별 조회)
+    - GET `/movie/{movieId}`
 - USER
   - 회원 가입
+    - POST `/join`
   - 회원 닉네임 수정
+    - GET `/user/me`
+    - POST `/user/me`
   - 회원 탈퇴
-- MOVIE
-  - 영화 정보 전체 조회
-  - 영화 정보 개별 조회 
+    - DELETE `/user`
 - REVIEW
   - 리뷰 작성
-  - 리뷰 목록 조회
+    - GET `/review/write/{movieId}`
+    - POST `/review/wirte/{movieId}`
+  - 전체 리뷰 목록 조회
+    - GET `/review`
+  - 나의 리뷰 목록 조회
+    - GET `/my/review`
 - ORDERS
   - 영화 주문
+    - GET `/order/{movieId}`
+    - POST `/order/{movieId}`
   - 주문 목록 전체 조회
+    - GET `/my/order`
   - 주문 목록 개별 조회
+    - GET `/my/order/{orderId}`
 
 
-
-
-
-## 작업 내용
+  
+## 작업 내용2
 - 전체 MOVIE 목록 조회 API 구현
 - 개별 MOVIE 내용 조회 API 구현
 - JWT 기반 회원가입 API 구현
