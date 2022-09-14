@@ -4,7 +4,9 @@
 <img src="https://user-images.githubusercontent.com/13285280/183861381-564dba9d-440a-4a42-b2fa-1cbb8b1fd7b0.png">
 </div>
 
-영화 정보를 얻고 그에 관한 리뷰를 작성 할 수 있는 `MovieLog`의 `Back-end`페이지입니다!
+안녕하세요. `MovieLog`의 `Back-end`페이지입니다!
+- 영화에 관한 정보를 얻을 수 있습니다.
+- 로그인 한 유저는 영화에 관한 리뷰를 작성 할 수 있습니다.
 
 
 ## 메인 페이지
@@ -38,51 +40,39 @@
 
 
 ## 작업 내용
-- MOVIE
-  - 메인 화면 (영화 전체 조회)
+- MOVIE domain
+  - 메인 화면 (전체 조회)
     - GET `/movie`
   - 영화 상세 (개별 조회)
     - GET `/movie/{movieId}`
-- USER
+- USER domain
   - 회원 가입
     - POST `/join`
+  - 로그인
+    - POST `/login`
+    - Jwt 기반 API 구현
   - 회원 닉네임 수정
-    - GET `/user/me`
+    - GET `/user/me` - 수정 페이지(front)
     - POST `/user/me`
   - 회원 탈퇴
     - DELETE `/user`
-- REVIEW
+- REVIEW domain
   - 리뷰 작성
-    - GET `/review/write/{movieId}`
+    - GET `/review/write/{movieId}` - 작성 페이지(front)
     - POST `/review/wirte/{movieId}`
   - 전체 리뷰 목록 조회
     - GET `/review`
   - 나의 리뷰 목록 조회
     - GET `/my/review`
-- ORDERS
+- ORDERS domain
   - 영화 주문
-    - GET `/order/{movieId}`
+    - GET `/order/{movieId}` - 구매 페이지(front)
     - POST `/order/{movieId}`
   - 주문 목록 전체 조회
     - GET `/my/order`
+    - repo 함수 만들어서 조회
   - 주문 목록 개별 조회
     - GET `/my/order/{orderId}`
-
-
-  
-## 작업 내용2
-- 전체 MOVIE 목록 조회 API 구현
-- 개별 MOVIE 내용 조회 API 구현
-- JWT 기반 회원가입 API 구현
-- JWT 기반 로그인 API 구현
-- 로그인 한 회원의 정보 조회 API 구현
-- 로그인 한 회원의 닉네임 수정 API 구현
-- 회원 탈퇴 API 구현
-- 전체 REVIEW 목록 조회 API 구현
-- REVIEW 작성 API 구현
-- 영화 ORDER API 구현
-- 회원의 전체 ORDER 목록 조회 API 구현
-- 회원의 개별 ORDER 내용 조회 API 구현
-- AWS EC2, RDS와 연동하여 배포 작업
+- AWS EC2, RDS와 연동하여 배포 작업 진행
 - 도메인 구매 및 적용
 - HTTPS 적용
