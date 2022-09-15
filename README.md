@@ -30,8 +30,9 @@
   - Amazon S3
 
 ## 시스템 구성
-
-
+<div align="center">
+<img src="https://user-images.githubusercontent.com/13285280/190374482-29d14be8-2058-456c-b2a7-7fef25002ab3.png" width="800">
+</div>
 
 ## ERD
 <div align="center">
@@ -40,23 +41,25 @@
 
 
 ## 작업 내용
-- MOVIE domain
+- MOVIE API
   - 메인 화면 (전체 조회)
     - GET `/movie`
   - 영화 상세 (개별 조회)
     - GET `/movie/{movieId}`
-- USER domain
+- USER API
   - 회원 가입
     - POST `/join`
   - 로그인
     - POST `/login`
-    - Jwt 기반 API 구현
+    - Jwt 기반 API 구현 : 입력 받은 email, password가 DB와 일치하면 Jwt 토큰을 만들어 반환
   - 회원 닉네임 수정
     - GET `/user/me` - 수정 페이지(front)
     - POST `/user/me`
+    - 로그인 한 회원의 정보 조회하여 닉네임 수정
   - 회원 탈퇴
     - DELETE `/user`
-- REVIEW domain
+    - 로그인 한 회원의 정보 조회하여 회원 탈퇴
+- REVIEW API
   - 리뷰 작성
     - GET `/review/write/{movieId}` - 작성 페이지(front)
     - POST `/review/wirte/{movieId}`
@@ -64,15 +67,20 @@
     - GET `/review`
   - 나의 리뷰 목록 조회
     - GET `/my/review`
-- ORDERS domain
+    - JPA method로 조건을 만들어 쿼리 생성
+- ORDERS API
   - 영화 주문
     - GET `/order/{movieId}` - 구매 페이지(front)
     - POST `/order/{movieId}`
   - 주문 목록 전체 조회
     - GET `/my/order`
-    - repo 함수 만들어서 조회
+    - JPA method로 조건을 만들어 쿼리 생성
   - 주문 목록 개별 조회
     - GET `/my/order/{orderId}`
 - AWS EC2, RDS와 연동하여 배포 작업 진행
+  - 프리티어 사용 중 메모리 부족 현상 해결
 - 도메인 구매 및 적용
+  - godaddy에서 도메인 구매
+  - Route53에서 도메인 등록
 - HTTPS 적용
+  - AWS Certificate Manager 통해 인증서 발급
