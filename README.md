@@ -51,13 +51,15 @@
     - POST `/join`
   - 로그인
     - POST `/login`
-    - Jwt 기반 API 구현 : 입력 받은 email, password가 DB와 일치하면 Jwt 토큰을 만들어 반환
+    - [Jwt 기반 API 구현](#jwt) : 입력 받은 email, password가 DB와 일치하면 Jwt 토큰을 만들어 반환
   - 회원 닉네임 수정
     - GET `/user/me` - 수정 페이지(front)
     - POST `/user/me`
-    - 로그인 한 회원의 정보 조회하여 닉네임 수정
+    - [회원 권한](#user)이 있어야 접근 가능
+    - [로그인 한 회원](#login-user)의 정보 조회하여 닉네임 수정
   - 회원 탈퇴
     - DELETE `/user`
+    - 회원 권한이 있어야 접근 가능
     - 로그인 한 회원의 정보 조회하여 회원 탈퇴
 - REVIEW API
   - 리뷰 작성
@@ -67,6 +69,7 @@
     - GET `/review`
   - 나의 리뷰 목록 조회
     - GET `/my/review`
+    - 회원 권한이 있어야 접근 가능
     - JPA method로 조건을 만들어 쿼리 생성
 - ORDERS API
   - 영화 주문
@@ -74,13 +77,22 @@
     - POST `/order/{movieId}`
   - 주문 목록 전체 조회
     - GET `/my/order`
+    - 회원 권한이 있어야 접근 가능
     - JPA method로 조건을 만들어 쿼리 생성
   - 주문 목록 개별 조회
     - GET `/my/order/{orderId}`
+    - 회원 권한이 있어야 접근 가능
 - AWS EC2, RDS와 연동하여 배포 작업 진행
-  - 프리티어 사용 중 메모리 부족 현상 해결
+  - 프리티어 사용 중 [메모리 부족 현상](#memory) 해결
 - 도메인 구매 및 적용
   - godaddy에서 도메인 구매
   - Route53에서 도메인 등록
 - HTTPS 적용
   - AWS Certificate Manager 통해 인증서 발급
+
+---
+- [Jwt 기반 API 구현](#jwt)
+  - 작성중
+- [USER 권한을 가져야만 접근 가능](#user)
+  - WebSecurity.java에서 권한 설정하여 user, my관련 서비스는 회원(USER)만 접근 가능
+ 
