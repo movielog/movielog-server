@@ -30,8 +30,9 @@
   - Java 
   - SpringBoot
   - JPA
+  - Spring Data JPA
   - JWT
-  - Amazon ec2
+  - Amazon EC2
   - Junit5
 - Database
   - H2(local)
@@ -126,131 +127,133 @@
 
 
 ## 작업 내용
-- MOVIE API
+- **MOVIE API**
   - 메인 화면 (전체 조회)
     - GET `/movie`
   - 영화 상세 (개별 조회)
     - GET `/movie/{movieId}`
-- USER API
+- **USER API**
+  - [Spring Security 적용](#spring-security와-jwt)
   - 회원 가입
     - POST `/join`
   - 로그인
     - POST `/login`
-    - [jwt 기반 api 구현](#jwt-기반-api-구현)
-  - 회원 닉네임 수정
+  - 회원 닉네임 수정 [*(USER ROLE 필요 페이지)*](#서비스-접근-권한-관리)
     - GET `/user/me` (front - 수정 페이지)
     - POST `/user/me`
-    - [회원 권한](#회원-권한)이 있어야 접근 가능
     - [로그인 한 회원](#로그인-한-회원)의 정보 조회하여 닉네임 수정
   - 회원 탈퇴
     - DELETE `/user`
-    - 회원 권한이 있어야 접근 가능
     - 로그인 한 회원의 정보 조회하여 회원 탈퇴
-- REVIEW API
+- **REVIEW API**
   - 리뷰 작성
     - GET `/review/write/{movieId}` (front - 작성 페이지)
     - POST `/review/wirte/{movieId}`
   - 전체 리뷰 목록 조회
     - GET `/review`
-  - 나의 리뷰 목록 조회
+  - 나의 리뷰 목록 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/review`
-    - 회원 권한이 있어야 접근 가능
-    - [query method](#query-method)로 조건을 만들어 쿼리 생성
-- ORDERS API
+    - [findAllByUser (review)](#findAllByUser-(review))로 리뷰 목록 조회
+- **ORDERS API**
   - 영화 주문
     - GET `/order/{movieId}` (front - 구매 페이지)
     - POST `/order/{movieId}`
-  - 주문 목록 전체 조회
+  - 나의 주문 목록 전체 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/order`
-    - 회원 권한이 있어야 접근 가능
-    - query method로 조건을 만들어 쿼리 생성
-  - 주문 목록 개별 조회
+    - [findAllByUser (order)](#findAllByUser-(order))로 구매 목록 조회
+  - 나의 주문 목록 개별 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/order/{orderId}`
-    - 회원 권한이 있어야 접근 가능
-- AWS ec2, RDS와 연동하여 배포 작업 진행
-  - 프리티어의 [ec2 메모리 부족 현상](#ec2-메모리-부족-현상) 이슈
+- AWS EC2, RDS와 연동하여 배포 작업 진행
+  - 프리티어의 [EC2 메모리 부족 현상](#ec2-메모리-부족-현상) 이슈
 - [도메인 연결](#도메인-연결)
 - [HTTPS 적용](#HTTPS-적용)
 
 ---
-## jwt 기반 api 구현
-### JWT(Json Web Token) : Json 객체를 통해 안전하게 정보를 전송할 수 있는 웹 표준
-  - *로그인 한 회원의 토큰*을 이용하여 회원을 식별할 수 있음
-    - 로그인이 성공하면 백엔드에서는 JWT를 생성하여 프론트엔드에 전달하며
-    - 프론트엔드는 그 JWT를 받아서 가지고 있다가, 백엔드 API 요청시 JWT를 헤더에 담아서 보냄
-  - 백엔드에 로그인 요청이 오면 오버라이드 한 `loadUserByUsername(username)` 함수를 통해 DB에서 유저 정보를 불러와 UserDetails 객체(사용자의 정보를 담는 인터페이스)를 return 함
-    - 이 때 JWT에서 인증 정보 확인시 username(이 프로젝트에서는 email에 해당)을 넘김
-  - 로그인 등 권한이 필요한 요청이 올 때마다 서버는 헤더에 담긴 JWT 값에서 USER ROLE 확인 후 리소스 제공
-  - *Postman을 이용해 테스트*
-    - 미리 가입한 user를 이용하여 POST: /login 요청을 보내면 토큰이 반환
-    - 다른 리소스를 요청 할 때, headers의 key(X-AUTH-TOKEN)에 토큰을 담아 보내 권한을 확인 함
-    <div align="center"><img width="600" alt="image" src="https://user-images.githubusercontent.com/13285280/191187795-f87c4db4-2256-4db7-bf57-685855dad325.png"></div>
+## Spring Security와 JWT
+### Spring Security는 Spring 기반 어플리케이션의 사용자 인증, 인가 및 보안을 담당하는 스프링 하위 프레임워크
+>Spring Security is a powerful and highly customizable authentication and access-control framework. It is the de-facto standard for securing Spring-based applications. <br> 
+Spring Security is a framework that focuses on providing both `authentication and authorization` to Java applications. Like all Spring projects, the real power of Spring Security is found in how easily it can be extended to meet custom requirements. [참고 페이지](https://spring.io/projects/spring-security)
 
 
-## 회원 권한
-### 필요한 곳에만 선택적으로 보안을 적용
-  - WebSecurityConfigure.java의 configure()에서 설정
-    - **USER, MY** 서비스에 *USER ROLE* 설정 (USER만 접근 가능)
-    - 이외의 서비스는 USER가 아니어도 접근 가능
-  - antMatchers("/api/user/**") : 와일드 카드 이용하여 서비스 경로 지정 
-    - hasRole("USER") : USER ROLE을 가진 사용자만 접근을 허용
-    - permitAll() : 모든 사용자 접근 허용
-      ``` java
-      @Override
-      protected void configure(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity
-                ...
-                .antMatchers("/api/user/**").hasRole("USER")
-                .antMatchers("/api/my/**").hasRole("USER")
-                .antMatchers("/api/order/**").hasRole("USER")
-                .antMatchers("/api/**").permitAll()
-                ...
-      }
-      ```
+*인증* 절차를 거친 후에 *인가* 절차를 진행함
+- 인증(Authentication) : 해당 사용자가 본인이 맞는지 확인하는 절차
+- 인가(Authorization) : 인증된 사용자가 요청한 자원에 [접근 가능한지 결정](#서비스-접근-권한-관리)하는 절차
+
+Spring Security를 사용하기 위해 의존성 추가
+``` java
+implementation 'org.springframework.boot:spring-boot-starter-security'
+```
 
 
-## query method
-Spring Data JPA에서는 Repository 인터페이스에 네이밍 룰을 이용하여 메소드를 작성하면 원하는 쿼리 실행 가능
+
+
+## Spring Data JPA
+Spring Data JPA는 스프링에서 JPA를 편리하게 사용할 수 있도록 지원 <br>
+특히 데이터 접근 계층 개발 시 반복 작성해 온 기본 CRUD 기능도 모두 제공 <br>
+- CRUD 처리를 위한 [공통 인터페이스](#jparepository-상속)(JpaRepository 상속) 제공
+- 인터페이스만 작성하면 동적으로 구현체를 생성해서 주입해줌
+- 따라서 인터페이스만 작성해도 개발을 완료 할 수 있도록 지원
+
+[공통 메소드](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html) 에는 `count, delete, deleteAll, findById..` 등이 있으며,
+공통 메소드가 아닌 경우에도 네이밍 룰을 이용하여 [메소드를 작성 하여 쿼리 실행](#메소드-이름으로-쿼리-실행-가능) 가능
+
+### JpaRepository 상속
+- CRUD 처리를 위한 공통 인터페이스
+- 이 인터페이스를 상속받은 인터페이스는 해당 엔티티에 대해 CRUD를 바로 사용 할 수 있음
+- 실제 구현체는 SimpleJpaRepository이며 이 클래스가 구현
+``` java
+public interface MovieRepository extends JpaRepository<Movie, Long> {
+
+}
+```
+
+### 메소드 이름으로 쿼리 실행
+- JPA가 제공하는 쿼리 메소드 기능 중 하나
+- 메소드의 이름을 설정하여 필요한 쿼리를 실행할 수 있음
+- 인터페이스에 메소드 선언만 하면 바로 사용 가능
   
-  - *적용1)* 앞서 언급한 `loadUserByUsername(username)`함수에서 username으로 계정 정보 조회 시
-    - 이메일(email)로 회원(user)을 조회하기 위해 UserRepository에 별도의 메소드 생성
-      ``` java
-        public interface UserRepository extends JpaRepository<User, Long> {
-          Optional<User> findByEmail(String email);
-        }
-      ```
-    - query = `select u from User u where u.email = ?1`
+#### findByEmail
+- *적용1)* 
+  - 이메일(email)로 회원(user)을 조회하기 위해 UserRepository에 별도의 메소드 생성
+    - 앞서 언급한 `loadUserByUsername(username)`함수에서 username으로 계정 정보 조회 시 사용
+    ``` java
+      public interface UserRepository extends JpaRepository<User, Long> {
+        Optional<User> findByEmail(String email);
+      }
+    ```
+  - query = `select u from User u where u.email = ?1`
 
 
-  - *적용2)* [MY - 내 리뷰]에서 조회하는 데이터 
-    - 특정 유저(user)가 작성한 리뷰(review)를 조회하기 ReviewRepository에 별도의 메소드 생성
+#### findAllByUser (review)
+- *적용2)* [MY - 내 리뷰]의 유저별 리뷰 목록
+  - 특정 유저(user)가 작성한 리뷰(review)를 조회하기 ReviewRepository에 별도의 메소드 생성
     
-      ``` java
-        public interface ReviewRepository extends JpaRepository<Review, Long> {
-          List<Review> findAllByUser(User user);
-        }
-      ```
-    - query = `select r from Review r where r.user = :user`
+    ``` java
+      public interface ReviewRepository extends JpaRepository<Review, Long> {
+        List<Review> findAllByUser(User user);
+      }
+    ```
+  - query = `select r from Review r where r.user = :user`
+
+#### findAllByUser (order)
+- *적용3)* [MY - 구매내역]의 유저별 주문 목록
+  - 특정 유저(user)가 생성한 주문(order)를 조회하기 OrderRepository에 별도의 메소드 생성
+    ``` java
+      public interface OrderRepository extends JpaRepository<Order, Long> {
+        List<Order> findAllByUser(User user);
+      }
+    ```
+  - query = `select o from Orders o where o.user = :order`
 
 
-  - *적용3)* [MY - 구매내역]에서 조회하는 데이터
-    - 특정 유저(user)가 생성한 주문(order)를 조회하기 OrderRepository에 별도의 메소드 생성
-      ``` java
-        public interface OrderRepository extends JpaRepository<Order, Long> {
-          List<Order> findAllByUser(User user);
-        }
-      ```
-    - query = `select o from Orders o where o.user = :order`
+- 참고 : [Spring Data JPA 공식 문서](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
 
 
-  - 참고 : [Spring Data JPA 공식 문서](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
-
-
-## ec2 메모리 부족 현상
+## EC2 메모리 부족 현상
   - 문제 확인
-    - **배포 시도** - 배포하기 위해 ec2에서 -jar 명령어 실행시 갑자기 정지함
+    - **배포 시도** : 배포하기 위해 EC2에서 -jar 명령어 실행시 갑자기 정지함
     - 네트워크 연결이 끊기고 아무것도 할 수 없으며, 다시 빌드 해도 동일한 현상 발생
-    - AWS ec2 인스턴스 모니터링(Cloud watch) 확인하니 **CPU 사용률**이 급상승하다가 하락하는 것을 확인 
+    - AWS EC2 인스턴스 모니터링(Cloud watch) 확인하니 **CPU 사용률**이 급상승하다가 하락하는 것을 확인 
       <br><img width="300" alt="image" src="https://user-images.githubusercontent.com/13285280/191682426-1d939fad-e7f6-408f-a1af-fae10253f1f2.png">
   - 원인
     - 이 프로젝트에서 사용하는 t2.micro(프리티어)는 메모리가 1GB
@@ -258,7 +261,7 @@ Spring Data JPA에서는 Repository 인터페이스에 네이밍 룰을 이용�
   - 해결 방법
     - 가장 간단한 해결 방법은 인스턴스 업그레이드이지만(비용 부과) Swap 메모리를 이용한 방법을 찾음
     - 스와핑(Swapping) : 리눅스는 하드 디스크를 가상 메모리로 전환시켜 사용
-      - 스왑 공간 계산하기
+      - 스왑 공간 쿠기 계산
         - 물리적 RAM 크기가 2GB 이하인 경우, 권장 스왑 메모리는 RAM 용량의 2배
         - 이 프로젝트에서는 1GB*2 = 약 2GB를 스왑할 수 있음
       - 순서
@@ -282,20 +285,23 @@ Spring Data JPA에서는 Repository 인터페이스에 네이밍 룰을 이용�
   1) GoDaddy에서 도메인 구매 
   2) AWS Route53에 호스팅 영역 생성 
   3) 호스팅 영역이 생성되면 유형 NS의 값 4개를 GoDaddy의 네임 서버에 설정 
-  4) AWS Route53에서 레코드 유형 A에 ec2 탄력적 IP 연결 
-  5) SSL 보안이 적용되지 않은 HTTP 도메인 연결 완료
+  4) AWS Route53에서 레코드 유형 A에 EC2 탄력적 IP 연결 
+  5) SSL(Secure Sockets Layer) 보안이 적용되지 않은 HTTP 도메인 연결 완료
 
 
 ## HTTPS 적용
-### 기존 HTTP에 SSL 보안 적용이 필요하여 추가
-  1) AWS Certificate Manager 통해 ACM 인증서 발급
-     - 도메인 이름을 입력하여 인증서 요청 후 레코드 검증 완료 
-  2) 로드 밸런서 설정
-     1) 타겟 그룹 만들기
-     2) 로드 밸런서 생성 - Application Load Balancer
-        1) 포트 추가할 때 타겟 그룹 적용
-        2) SSL 보안 : listener에 ACM 인증서 적용
-  3) Route53에서 단순 라우팅 설정
-     1) 레코드 유형 A를 선택
-     2) 값/트래픽 라우팅 대상에 이전에 만든 로드 밸런서 적용
-     3) 레코드를 생성하면 HTTPS 연결 완료
+### 기존 HTTP에 SSL 보안 적용
+- 클라이언트와 서버가 주고 받는 모든 데이터 암호화
+- 데이터 암호화를 위해 SSL을 사용함
+
+1) AWS Certificate Manager 통해 ACM 인증서 발급
+   - 도메인 이름을 입력하여 인증서 요청 후 레코드 검증 완료 
+2) 로드 밸런서 설정
+   1) 타겟 그룹 만들기
+   2) 로드 밸런서 생성 - Application Load Balancer
+      1) 포트 추가할 때 타겟 그룹 적용
+      2) SSL 보안 : listener에 ACM 인증서 적용
+3) Route53에서 단순 라우팅 설정
+   1) 레코드 유형 A를 선택
+   2) 값/트래픽 라우팅 대상에 이전에 만든 로드 밸런서 적용
+   3) 레코드를 생성하면 HTTPS 연결 완료
