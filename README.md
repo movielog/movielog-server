@@ -173,15 +173,16 @@
 # 주요 개발 내용
 
 ## Spring Security와 JWT
-### Spring Security는 Spring 기반 어플리케이션의 사용자 인증, 인가 및 보안을 담당하는 스프링 하위 프레임워크
+### Spring Security
 >Spring Security is a powerful and highly customizable authentication and access-control framework. It is the de-facto standard for securing Spring-based applications. <br> 
 Spring Security is a framework that focuses on providing both `authentication and authorization` to Java applications. Like all Spring projects, the real power of Spring Security is found in how easily it can be extended to meet custom requirements.
 > [참고 페이지](https://spring.io/projects/spring-security)
 
-
-*인증* 절차를 거친 후에 *인가* 절차를 진행함
-- 인증(Authentication) : 사용자가 누구인지, 해당 사용자가 본인이 맞는지 확인하는 절차
-- 인가(Authorization) : 인증된 사용자가 요청한 자원에 [접근 가능한지 결정](#서비스-접근-권한-관리)하는 절차
+- Spring 기반 어플리케이션의 표준 보안 프레임워크
+- 사용자 인증, 인가 및 보안을 제공
+- *인증* 절차를 거친 후에 *인가* 절차를 진행함
+  - 인증(Authentication) : 사용자가 누구인지, 해당 사용자가 본인이 맞는지 확인하는 절차
+  - 인가(Authorization) : 인증된 사용자가 요청한 자원에 [접근 가능한지 결정](#서비스-접근-권한-관리)하는 절차
 
 프로젝트에 Spring Security를 사용하기 위해 의존성 추가
 ``` java
@@ -195,7 +196,7 @@ implementation 'org.springframework.boot:spring-boot-starter-security'
 > [참고 페이지](https://jwt.io/)
 
 
-#### JWT 구조
+**JWT 구조**
 - . 를 구분자로 나누어지는 세 가지 문자열의 조합
 - Header, Payload, Signature로 이루어져 있음
   - Header : 토큰의 타입, 암호와 알고리즘으로 구성
@@ -282,6 +283,7 @@ API 요청 시 프론트엔드에서는 Header에 JWT를 담아 보냄
   - `POST: /user/me` 요청 시 Header의 X-AUTH-TOKEN에 (로그인 시 생성한) JWT를 함께 보냄
     - Body에 수정할 닉네임 설정 
   - JWT을 통해 USER ROLE을 확인하여 닉네임 수정 성공
+    - nickname : user1 -> pizza 수정 
     <div align="center">
     <img width="600" alt="image" src="https://user-images.githubusercontent.com/13285280/192442123-45cafa2a-64fd-4543-a178-17f13333cb55.png">
     <img width="600" alt="image" src="https://user-images.githubusercontent.com/13285280/192442456-d71fe35d-f8e0-4d7d-a300-a8cfcf2ddd94.png">
@@ -314,7 +316,7 @@ API 요청 시 프론트엔드에서는 Header에 JWT를 담아 보냄
 
 ## Spring Data JPA
 ### Spring Data JPA는 스프링에서 JPA를 편리하게 사용할 수 있도록 지원 <br>
-특히 데이터 접근 계층 개발 시 반복 작성해 온 기본 CRUD 기능도 모두 제공 <br>
+기본 CRUD 기능을 모두 제공하여 데이터 접근 계층 개발 시 반복해 작성할 필요 없음
 - CRUD 처리를 위한 공통 인터페이스([JpaRepository 상속](#jparepository-상속)) 제공
 - 인터페이스만 작성하면 동적으로 구현체를 생성해서 주입해줌
 - 따라서 인터페이스만 작성해도 개발을 완료할 수 있도록 지원
