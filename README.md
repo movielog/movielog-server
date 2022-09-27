@@ -139,10 +139,10 @@
   - 회원 가입
     - POST `/join`
   - 로그인
-    - [POST `/login`](#/login-(로그인-api))
+    - [POST `/login`](#/login-로그인-api)
   - 닉네임 수정 [*(USER ROLE 필요 페이지)*](#서비스-접근-권한-관리)
     - GET `/user/me` (front - 수정 페이지)
-    - [POST `/user/me`](#/user/me-(닉네임-수정-api))
+    - [POST `/user/me`](#/user/me-닉네임-수정-api)
   - 회원 탈퇴
     - DELETE `/user`
 - **REVIEW API**
@@ -153,14 +153,14 @@
     - GET `/review`
   - 나의 리뷰 목록 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/review`
-    - [findAllByUser (review)](#findallbyuser-(review))로 리뷰 목록 조회
+    - [findAllByUser(review)](#findallbyuser-review)로 리뷰 목록 조회
 - **ORDERS API**
   - 영화 주문
     - GET `/order/{movieId}` (front - 구매 페이지)
     - POST `/order/{movieId}`
   - 나의 주문 목록 전체 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/order`
-    - [findAllByUser (order)](#findallbyuser-(order))로 구매 목록 조회
+    - [findAllByUser(order)](#findallbyuser-order)로 구매 목록 조회
   - 나의 주문 목록 개별 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/order/{orderId}`
 - AWS EC2, RDS와 연동하여 배포 작업 진행
