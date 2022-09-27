@@ -139,10 +139,10 @@
   - 회원 가입
     - POST `/join`
   - 로그인
-    - [POST `/login`](#/login-로그인-api)
+    - [POST `/login`](#로그인-api)
   - 닉네임 수정 [*(USER ROLE 필요 페이지)*](#서비스-접근-권한-관리)
     - GET `/user/me` (front - 수정 페이지)
-    - [POST `/user/me`](#/user/me-닉네임-수정-api)
+    - [POST `/user/me`](#닉네임-수정-api)
   - 회원 탈퇴
     - DELETE `/user`
 - **REVIEW API**
@@ -227,7 +227,7 @@ implementation 'io.jsonwebtoken:jjwt:0.9.1'
 ```
 
 
-### /login (로그인 API)
+### 로그인 API
 서버에 로그인하여 JWT를 생성하는 과정
 
 - 로그인 요청이 오면 Controller를 통해 UserService.java의 login 실행
@@ -260,7 +260,7 @@ implementation 'io.jsonwebtoken:jjwt:0.9.1'
     </div>
 
 
-### /user/me (닉네임 수정 API)
+### 닉네임 수정 API
 API 요청 시 프론트엔드에서는 Header에 JWT를 담아 보냄
 - 닉네임 수정과 같은 권한이 필요한 요청이 올 때마다, 서버는 Header의 X-AUTH-TOKEN에 담긴 JWT을 가져옴
   ``` java
