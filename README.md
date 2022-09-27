@@ -7,8 +7,8 @@
 안녕하세요. `MovieLog`의 `Back-end`페이지입니다!
 - 영화에 관한 정보를 얻을 수 있습니다.
 - Spring Security와 JWT를 이용하여 사용자를 인증하고 식별합니다.
-- 로그인 한 사용자는 영화에 관한 리뷰를 작성 할 수 있습니다.
-- 로그인을 하지 않으면 작성된 리뷰만 볼 수 있습니다.
+- 로그인 한 사용자는 영화에 관한 리뷰를 작성할 수 있습니다.
+- 로그인하지 않으면 작성된 리뷰만 볼 수 있습니다.
 
 
 # 메인 페이지
@@ -50,8 +50,8 @@
 
 - 프로젝트는 프론트엔드 1인, 백엔드 1인으로 나누어 개발했습니다. <br>
   - 프론트엔드는 react를 사용했습니다.
-- 프론트엔트 프로젝트를 백엔드 프로젝트 안에 포함시켜 배포하였고, 아래 패키지 구조에서 확인 할 수 있습니다. <br>
-- [프론트엔드 저장소](https://github.com/movielog/movielog-client) readme에서는 구현 동작을 확인 할 수 있습니다.
+- 프론트엔트 프로젝트를 백엔드 프로젝트 안에 포함해 배포하였고, 아래 패키지 구조에서 확인할 수 있습니다. <br>
+- [프론트엔드 저장소](https://github.com/movielog/movielog-client) readme에서는 구현 동작을 확인할 수 있습니다.
 
 <details>
     <summary>Backend 패키지 구조 확인</summary>
@@ -153,14 +153,14 @@
     - GET `/review`
   - 나의 리뷰 목록 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/review`
-    - [findAllByUser (review)](#findAllByUser-(review))로 리뷰 목록 조회
+    - [findAllByUser (review)](#findallbyUser-(review))로 리뷰 목록 조회
 - **ORDERS API**
   - 영화 주문
     - GET `/order/{movieId}` (front - 구매 페이지)
     - POST `/order/{movieId}`
   - 나의 주문 목록 전체 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/order`
-    - [findAllByUser (order)](#findAllByUser-(order))로 구매 목록 조회
+    - [findAllByUser (order)](#findallbyUser-(order))로 구매 목록 조회
   - 나의 주문 목록 개별 조회 *(USER ROLE 필요 페이지)*
     - GET `/my/order/{orderId}`
 - AWS EC2, RDS와 연동하여 배포 작업 진행
@@ -196,10 +196,10 @@ implementation 'org.springframework.boot:spring-boot-starter-security'
 
 
 #### JWT 구조
-- . 를 구분자로 나누어지는 세가지 문자열의 조합
+- . 를 구분자로 나누어지는 세 가지 문자열의 조합
 - Header, Payload, Signature로 이루어져 있음
   - Header : 토큰의 타입, 암호와 알고리즘으로 구성
-  - Payload : 실제로 회원을 구분 할 수 있는 정보(Claim) 포함 (민감 정보[ex. 비밀번호 등]는 포함하면 안됨)
+  - Payload : 실제로 회원을 구분할 수 있는 정보(Claim) 포함 (민감 정보[ex. 비밀번호 등]는 포함하면 안 됨)
   - Signature : Header에서 정의한 알고리즘 방식 활용, Secret Key를 포함하여 암호화
 
 <div align="center">
@@ -208,7 +208,7 @@ implementation 'org.springframework.boot:spring-boot-starter-security'
 
 **사용자 식별 과정**
 1. 사용자가 인증되면 서버에서는 JWT를 생성하여 클라이언트에 전달
-2. 클라이언트에서는 그 JWT를 받아서 가지고 있다가, 서버에 API 요청시 JWT를 HTTP Header에 담아서 보냄
+2. 클라이언트에서는 그 JWT를 받아서 가지고 있다가, 서버에 API 요청 시 JWT를 HTTP Header에 담아서 보냄
 3. 서버는 클라이언트가 전달한 JWT를 이용하여 사용자 식별
 
 이 과정을 거치면 아래와 같은 JWT가 생성
@@ -228,7 +228,7 @@ implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
 
 ### /login (로그인 API)
-서버에 로그인 하여 JWT를 생성하는 과정
+서버에 로그인하여 JWT를 생성하는 과정
 
 - 로그인 요청이 오면 Controller를 통해 UserService.java의 login 실행
   ``` java
@@ -261,7 +261,7 @@ implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
 
 ### /user/me (닉네임 수정 API)
-API 요청시 프론트엔드에서는 Header에 JWT를 담아 보냄
+API 요청 시 프론트엔드에서는 Header에 JWT를 담아 보냄
 - 닉네임 수정과 같은 권한이 필요한 요청이 올 때마다, 서버는 Header의 X-AUTH-TOKEN에 담긴 JWT을 가져옴
   ``` java
   public String resolveToken(HttpServletRequest request) {
@@ -279,7 +279,7 @@ API 요청시 프론트엔드에서는 Header에 JWT를 담아 보냄
 - DB에서 가져온 사용자 정보를 UserDetails 객체에 담아 return 함
   - 이때 사용자 정보에서 USER ROLE 권한을 확인하여 리소스 제공
 - **Postman으로 테스트**
-  - `POST: /user/me` 요청시 Header의 X-AUTH-TOKEN에 (로그인 시 생성한) JWT를 함께 보냄
+  - `POST: /user/me` 요청 시 Header의 X-AUTH-TOKEN에 (로그인 시 생성한) JWT를 함께 보냄
     - Body에 수정할 닉네임 설정 
   - JWT을 통해 USER ROLE을 확인하여 닉네임 수정 성공
     <div align="center">
@@ -294,7 +294,7 @@ API 요청시 프론트엔드에서는 Header에 JWT를 담아 보냄
 - WebSecurityConfigure.java의 configure()에서 설정
   - `hasRole("USER")`를 통해 *USER, MY 서비스*에 USER ROLE을 가진 사용자만 접근 허용
     - *USER, MY 서비스* : 닉네임 수정, 회원 탈퇴, 나의 리뷰 목록, 나의 주문 목록
-  - `permitAll()`을 통해 이외의 서비스는 USER가 아니어도 접근 가능하게 함
+  - `permitAll()`을 통해 이외의 서비스는 USER가 아니어도 접근할 수 있게 함
     ``` java
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
@@ -317,15 +317,15 @@ API 요청시 프론트엔드에서는 Header에 JWT를 담아 보냄
 특히 데이터 접근 계층 개발 시 반복 작성해 온 기본 CRUD 기능도 모두 제공 <br>
 - CRUD 처리를 위한 공통 인터페이스([JpaRepository 상속](#jparepository-상속)) 제공
 - 인터페이스만 작성하면 동적으로 구현체를 생성해서 주입해줌
-- 따라서 인터페이스만 작성해도 개발을 완료 할 수 있도록 지원
+- 따라서 인터페이스만 작성해도 개발을 완료할 수 있도록 지원
 
 [공통 메소드](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html) 에는 `count, delete, deleteAll, findById..` 등이 있으며,
-공통 메소드가 아닌 경우에도 네이밍 룰을 이용하여 [메소드를 작성 하여 쿼리 실행](#메소드-이름으로-쿼리-실행) 가능
+공통 메소드가 아니어도 네이밍 룰을 이용하여 [메소드를 작성하여 쿼리 실행](#메소드-이름으로-쿼리-실행) 가능
 
 
 ### JpaRepository 상속
 - CRUD 처리를 위한 *공통 인터페이스*
-- 이 인터페이스를 상속받은 인터페이스는 해당 엔티티에 대해 CRUD를 바로 사용 할 수 있음
+- 이 인터페이스를 상속받은 인터페이스는 해당 엔티티에 대해 CRUD를 바로 사용할 수 있음
 - 실제 구현체는 SimpleJpaRepository이며 이 클래스가 구현
 ``` java
 public interface MovieRepository extends JpaRepository<Movie, Long> {
@@ -379,8 +379,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 ## EC2 메모리 부족 현상
 - 문제 확인
-  - **배포 시도** : 배포하기 위해 EC2에서 -jar 명령어 실행시 갑자기 정지함
-  - 네트워크 연결이 끊기고 아무것도 할 수 없으며, 다시 빌드 해도 동일한 현상 발생
+  - **배포 시도** : 배포하기 위해 EC2에서 -jar 명령어 실행 시 갑자기 정지함
+  - 네트워크 연결이 끊기고 아무것도 할 수 없으며, 다시 빌드 해도 같은 현상 발생
   - AWS EC2 인스턴스 모니터링(Cloud watch) 확인하니 **CPU 사용률**이 급상승하다가 하락하는 것을 확인 
     <br><img width="300" alt="image" src="https://user-images.githubusercontent.com/13285280/191682426-1d939fad-e7f6-408f-a1af-fae10253f1f2.png">
 - 원인
@@ -388,7 +388,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
   - 빌드 규모가 커지면 메모리가 부족하여 이러한 현상이 나타남
 - 해결 방법
   - 가장 간단한 해결 방법은 인스턴스 업그레이드이지만(비용 부과) Swap 메모리를 이용한 방법을 찾음
-  - 스와핑(Swapping) : 리눅스는 하드 디스크를 가상 메모리로 전환시켜 사용
+  - 스와핑(Swapping) : 리눅스는 하드 디스크를 가상 메모리로 전환해 사용
     - 스왑 공간 쿠기 계산
       - 물리적 RAM 크기가 2GB 이하인 경우, 권장 스왑 메모리는 RAM 용량의 2배
       - 이 프로젝트에서는 1GB*2 = 약 2GB를 스왑할 수 있음
@@ -411,15 +411,15 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 ## 도메인 연결
 1) GoDaddy에서 도메인 구매 
-2) AWS Route53에 호스팅 영역 생성 
+2) AWS Route 53에 호스팅 영역 생성 
 3) 호스팅 영역이 생성되면 유형 NS의 값 4개를 GoDaddy의 네임 서버에 설정 
-4) AWS Route53에서 레코드 유형 A에 EC2 탄력적 IP 연결 
+4) AWS Route 53에서 레코드 유형 A에 EC2 탄력적 IP 연결 
 5) SSL(Secure Sockets Layer) 보안이 적용되지 않은 HTTP 도메인 연결 완료
 
 
 ## HTTPS 적용
 ### 기존 HTTP에 SSL 보안 적용
-- 클라이언트와 서버가 주고 받는 모든 데이터 암호화
+- 클라이언트와 서버가 주고받는 모든 데이터 암호화
 - 데이터 암호화를 위해 SSL을 사용함
 
 1) AWS Certificate Manager 통해 ACM 인증서 발급
@@ -429,7 +429,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
    2) 로드 밸런서 생성 - Application Load Balancer
       1) 포트 추가할 때 타겟 그룹 적용
       2) SSL 보안 : listener에 ACM 인증서 적용
-3) Route53에서 단순 라우팅 설정
+3) Route 53에서 단순 라우팅 설정
    1) 레코드 유형 A를 선택
    2) 값/트래픽 라우팅 대상에 이전에 만든 로드 밸런서 적용
    3) 레코드를 생성하면 HTTPS 연결 완료
